@@ -52,3 +52,19 @@ To tunnel your jupyter in SparkMaster to local, ```source jupyter_setup.sh```, f
 ```
 The default user in Flintrock is ec2-user so that will work most of the time. Other common user name can be ```ubuntu```.
 
+## Training on Spark 
+We will have to add the dataset and the ```Train.ipynb``` file to the master and slave nodes. This can be done with:
+```
+scp -i /path/to/key/pair /path/to/file/on/local username@ec2.public.dns:/path/in/remote
+```
+ We can now run the Train.ipynb file. The ```Train.ipynb``` file saves the ML model as directories. We can then download the model files and reuse it.
+ 
+ ## Contaninerization of ML model
+We use the base image provided by Data Mechanics which already comes with Spark installed. We copy all the required files for prediction into the docker container. Then we run a ```pip3 install``` on our reqiurements.
+The saved Docker image can be pulled from my repo:
+```
+docker pull wanderlust011999/spark-mllib-ec2-docker:latest
+```
+Once you have pulled the docker image, you can run as follows:
+```
+docker run -v /absolute/path/to/test.csv/file:/opt/spark/work-dir/ValidationDataset.csv --platform linux/amd64 --rm -i -t projppp56789 python3 Cloud_prediction.py
