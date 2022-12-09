@@ -28,9 +28,11 @@ ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.7-src.zip
 
 COPY Cloud_prediction.py ./
 COPY model123 model123
-COPY ValidationDataset.csv ./
+#COPY ValidationDataset.csv ./
 COPY requirements.txt ./
 RUN pip3 install --upgrade pip --user
 RUN pip3 install numpy pandas seaborn matplotlib Jinja2 pyspark==3.1.2 --user
+RUN echo "export SPARK_HOME="../"" >> ~/.bashrc
+RUN source ~/.bashrc
 # ENTRYPOINT ['python']
 
