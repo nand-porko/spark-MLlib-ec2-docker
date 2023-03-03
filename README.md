@@ -67,4 +67,4 @@ docker pull wanderlust011999/spark-mllib-ec2-docker:latest
 ```
 Once you have pulled the docker image, you can run as follows:
 ```
-docker run -v /absolute/path/to/test.csv/file:/opt/spark/work-dir/ValidationDataset.csv --platform linux/amd64 --rm -i -t projppp56789 python3 Cloud_prediction.py
+docker run -v /absolute/path/to/test.csv:/opt/spark/work-dir/ValidationDataset.csv --platform linux/amd64 --rm -i -t wanderlust011999/spark-mllib-ec2-docker python3 Cloud_prediction.py
